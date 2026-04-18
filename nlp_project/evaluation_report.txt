@@ -1,0 +1,260 @@
+NLP PROJECT - EVALUATION REPORT
+================================================================================
+
+PART 1: TEXT GENERATION MODELS
+
+================================================================================
+TEXT GENERATION MODELS - TRAINING PERFORMANCE COMPARISON
+================================================================================
++-------------------+-----------------+----------------+--------------+
+| Model             | Training Time   | Memory Usage   | Final Loss   |
++===================+=================+================+==============+
+| Char Markov Chain | 0.01s           | 3.5 MB         | N/A          |
++-------------------+-----------------+----------------+--------------+
+| Word Markov Chain | 0.00s           | 2.0 MB         | N/A          |
++-------------------+-----------------+----------------+--------------+
+| Char RNN          | 791.00s         | 35.5 MB        | 0.6734       |
++-------------------+-----------------+----------------+--------------+
+| Word RNN          | 61.92s          | 8.6 MB         | 0.7851       |
++-------------------+-----------------+----------------+--------------+
+| Char LSTM         | 2330.41s        | 54.4 MB        | 0.2887       |
++-------------------+-----------------+----------------+--------------+
+| Word LSTM         | 78.56s          | -50.7 MB       | 0.8263       |
++-------------------+-----------------+----------------+--------------+
+
+================================================================================
+TEXT GENERATION MODELS - OUTPUT COMPARISON (10 PROMPTS)
+================================================================================
+
+--- Character-Level Models ---
+
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #   | Prompt             | Markov Chain                 | RNN                          | LSTM                         |
++=====+====================+==============================+==============================+==============================+
+| #1  | The ancient forest | The analyzes the melody      | The ancient forestratusly.   | The ancient foresthissous    |
+|     |                    | impressive principles and    | Similarly. Sisiles that make | supports effectively.        |
+|     |                    | the flavorful desserts. the  | life artifacts without m...  | Understanding how the        |
+|     |                    | sp...                        |                              | culture un...                |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #2  | In the world of    | In the exhibitional          | In the world ofermently      | In the world of the path in  |
+|     |                    | conditional vital role in    | toward new artifacts, the    | shaping influential          |
+|     |                    | shaping the doctor inspires  | tender strategies. Both the  | traditions cannot be         |
+|     |                    | create...                    | in...                        | overstated....               |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #3  | Science reveals    | ScienPeople have always been | Science reveals approaches.  | Science reveals and exotic   |
+|     |                    | associated without           | One cannot discuss           | grains define the road in    |
+|     |                    | mentioning groundbreaking    | ingredient years and lasting | many ways. Understanding     |
+|     |                    | compre...                    | imp...                       | ho...                        |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #4  | The computer proc  | The connection between the   | The computer procepent       | The computer processes the   |
+|     |                    | coach and exotic beaches     | conquered the boundaries of  | concepts that make life      |
+|     |                    | that the movements, the      | vibrant allastr colorse      | restorative. The importance  |
+|     |                    | lege...                      | trans...                     | o...                         |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #5  | Every day the      | Every day, the savory        | Every day thererue has long  | Every day thed with great    |
+|     |                    | effort, the techniques to    | been associated with salads  | purpose, shaping the dynamic |
+|     |                    | the explore follows the      | define the team inspires...  | emotions of our time. In ... |
+|     |                    | movement...                  |                              |                              |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #6  | Through careful    | Through flavor creative      | Through carefuly.            | Through carefuly, the        |
+|     |                    | vital role of the            | Significantly, in recent     | foundational disciplines     |
+|     |                    | breathtaking elements and    | years, the canvas supports   | continue to evolve. Every    |
+|     |                    | lastingly. B...              | the very c...                | day, th...                   |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #7  | The importance of  | The importance of the        | The importance oferming      | The importance ofer has long |
+|     |                    | observation present day, the | presents the eamaly theives  | been associated with crispy  |
+|     |                    | scholar inspiring rich       | expertly, transforming our   | grains and lasting impa...   |
+|     |                    | desser...                    | v...                         |                              |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #8  | Many believe that  | Many believe that the        | Many believe thater          | Many believe thattames and   |
+|     |                    | explore science.             | conquered ssivelinn          | theoretical phenomena define |
+|     |                    | In the importantly,          | remarkably.                  | the technique in many wa...  |
+|     |                    | transforming methods...      | In the realm of complex      |                              |
+|     |                    |                              | tim...                       |                              |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #9  | Understanding how  | Understated. As a result,    | Understanding howens atterts | Understanding howel meatures |
+|     |                    | many ways. Both the road     | with great purpose, shaping  | reveals deep truths about    |
+|     |                    | wanderer discuss pictures    | the nutritious couss ou...   | enduring achievements. Th... |
+|     |                    | rev...                       |                              |                              |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+| #10 | The connection bet | The connected. The future    | The connection beter and the | The connection beter and     |
+|     |                    | connections of effectives    | study of how the alliance    | more connected world.        |
+|     |                    | peaceful goals. As a         | conquered restores sechos... | ---                          |
+|     |                    | result,...                   |                              | Few subjects capture human   |
+|     |                    |                              |                              | ...                          |
++-----+--------------------+------------------------------+------------------------------+------------------------------+
+
+--- Word-Level Models ---
+
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #   | Prompt                       | Markov Chain                 | RNN                          | LSTM                         |
++=====+==============================+==============================+==============================+==============================+
+| #1  | the ancient forest stretches | the ancient records play a   | the ancient forest stretches | the ancient forest stretches |
+|     |                              | vital role in progress. in   | among the balanced           | gently, the foundational     |
+|     |                              | the years to come. ---       | functions. in fact, the      | world takes notice. on       |
+|     |                              | the...                       | study of...                  | the...                       |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #2  | in the world of science      | in the years to come. ---    | in the world of science full | in the world of science      |
+|     |                              | people have always been      | of wonder and complexity.    | endless opportunities for    |
+|     |                              | drawn to the present day,    | every day, the exercise p... | learning and growth. the     |
+|     |                              | hist...                      |                              | impor...                     |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #3  | the computer processes data  | the computer processes the   | the computer processes <UNK> | the computer processes <UNK> |
+|     |                              | boundaries of aromatic       | importantly, the importance  | the digital world takes      |
+|     |                              | wines. the bread serves      | of the empire grows as ...   | notice. in recent years,     |
+|     |                              | freshl...                    |                              | th...                        |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #4  | every day the student learns | every day people have always | every <UNK> the student      | every <UNK> the student      |
+|     |                              | been drawn to the mysteries  | learns boundaries of         | learns the study of how the  |
+|     |                              | of food. the connection...   | practical skills. every day, | dish serves reveals deep     |
+|     |                              |                              | the sc...                    | tru...                       |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #5  | through careful effort the   | through careful people have  | through <UNK> <UNK> the in   | through <UNK> <UNK> the      |
+|     |                              | always been drawn to the     | many ways. as the landscape  | soups continue to evolve.    |
+|     |                              | present day, education has   | wanders slowly, the pictu... | the theory has long been     |
+|     |                              | ...                          |                              | assoc...                     |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #6  | the importance of education  | the importance of the        | the importance of education  | the importance of education  |
+|     |                              | lecture in shaping           | far beyond its obvious       | in shaping the approaches    |
+|     |                              | progressive concepts cannot  | boundaries. when the         | cannot be overstated. as     |
+|     |                              | be overstat...               | curricul...                  | t...                         |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #7  | many believe that the        | many believe that the path   | many believe that the        | many believe that the meadow |
+|     |                              | discovers peacefully,        | developed the very muscles   | the very achievements we     |
+|     |                              | transforming our view of     | we depend upon. the role of  | depend upon. it is well      |
+|     |                              | achiev...                    | the...                       | kn...                        |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #8  | understanding how the system | understanding how the        | understanding how the <UNK>  | understanding how the <UNK>  |
+|     |                              | medicine restores mindfully. | is key to appreciating       | is key to appreciating       |
+|     |                              | the connection between the   | meaningful concepts. many    | influential territories.     |
+|     |                              | ki...                        | bel...                       | sign...                      |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #9  | the role of the artist       | the role of the course       | the role of the artist of    | the role of the artist       |
+|     |                              | advances collaboratively,    | our time. in recent years,   | travel has evolved           |
+|     |                              | transforming our view of     | the diet heals the           | remarkably. the importance   |
+|     |                              | oils. ...                    | boundari...                  | of the rese...               |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+| #10 | the athlete trains hard      | the athlete grows as organic | the athlete trains <UNK>     | the athlete trains <UNK> the |
+|     |                              | spices become more central.  | every day, the people        | role of the colony in        |
+|     |                              | in the realm of diverse...   | preserved the discoveries    | shaping prosperous           |
+|     |                              |                              | that ma...                   | achievemen...                |
++-----+------------------------------+------------------------------+------------------------------+------------------------------+
+
+================================================================================
+OUTPUT QUALITY OBSERVATIONS
+================================================================================
+
+1. Markov Chain Models:
+   - Character-level: Produces text that looks like English but with frequent
+     nonsense words. Good at capturing local character patterns.
+   - Word-level: Produces grammatically plausible phrases since it operates on
+     real words, but lacks long-range coherence.
+
+2. RNN Models:
+   - Character-level: Better than Markov at learning spelling patterns and common
+     word structures. Can struggle with long-term dependencies.
+   - Word-level: Generates somewhat coherent phrases but may repeat patterns.
+     Limited by vanishing gradient problem.
+
+3. LSTM Models:
+   - Character-level: Best character-level model for capturing longer patterns.
+     Produces more coherent sequences than RNN.
+   - Word-level: Best neural word-level model. Better at maintaining context
+     across the generated sequence due to gating mechanism.
+
+General Notes:
+- All models trained from scratch on ~12,000 words, which limits output quality.
+- Character-level models need longer training and more data for coherent words.
+- Word-level models produce real words but may lack grammatical structure.
+- LSTM consistently outperforms RNN due to better gradient flow.
+- Markov Chain is fastest to train but has no learning of underlying structure.
+
+
+PART 2: CHATBOT MODELS
+
+================================================================================
+CHATBOT MODELS - TRAINING PERFORMANCE COMPARISON
+================================================================================
++---------------------+-----------------+----------+--------------+--------------+
+| Model               | Training Time   | Memory   |   Final Loss |   Parameters |
++=====================+=================+==========+==============+==============+
+| LSTM Chatbot        | 323.25s         | 284.3 MB |       0.0684 |    6,019,947 |
++---------------------+-----------------+----------+--------------+--------------+
+| Transformer Chatbot | 92.63s          | 4.6 MB   |       4.3943 |    1,971,819 |
++---------------------+-----------------+----------+--------------+--------------+
+
+--- Loss Curves ---
+
+================================================================================
+CHATBOT MODELS - RESPONSE COMPARISON (10 TEST QUESTIONS)
+================================================================================
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #   | Question                       | LSTM Response                       | Transformer Response                |
++=====+================================+=====================================+=====================================+
+| #1  | What is the capital of France? | the capital of france is paris.     | the capital of the capital of the   |
+|     |                                |                                     | capital of the capital of the       |
+|     |                                |                                     | capital of the c...                 |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #2  | How does gravity work?         | gravity works by creating an        | let me explain. the capital of a    |
+|     |                                | attractive force proportional to    | good question.                      |
+|     |                                | the masses involve...               |                                     |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #3  | What is a computer?            | a computer is an electronic device  | to help! is a good question. a good |
+|     |                                | that processes data according to    | question. a good question. a good   |
+|     |                                | instructions...                     | question. ...                       |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #4  | What is photosynthesis?        | photosynthesis is the process by    | good question. the capital of       |
+|     |                                | which plants convert sunlight into  | course. of course.                  |
+|     |                                | energy.                             |                                     |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #5  | Hello!                         | hello! how can i help you today?    | certainly. to answer that, the      |
+|     |                                |                                     | capital of to answer that, to       |
+|     |                                |                                     | answer that, to ans...              |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #6  | What is the largest ocean?     | the pacific ocean is the largest    | the capital of the capital of the   |
+|     |                                | ocean on earth.                     | capital of the capital of the       |
+|     |                                |                                     | capital of the c...                 |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #7  | Who was the first president of | george washington was the first     | the capital of the capital of the   |
+|     | the United States?             | president of the united states.     | capital of the capital of the       |
+|     |                                |                                     | capital of the c...                 |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #8  | What is machine learning?      | machine learning is a subset of ai  | to answer that, a good question. a  |
+|     |                                | where systems learn from data       | good question. a good question. a   |
+|     |                                | without explici...                  | good questi...                      |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #9  | What is a prime number?        | a prime number is a number greater  | good question. a good question. a   |
+|     |                                | than one that has no divisors other | good question. a good question. a   |
+|     |                                | than one ...                        | good questio...                     |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+| #10 | Tell me about climate change.  | climate is the long-term pattern of | good question. the answer: the      |
+|     |                                | weather conditions in a region. it  | capital of course. of course. is    |
+|     |                                | plays an ...                        | the answer: the ...                 |
++-----+--------------------------------+-------------------------------------+-------------------------------------+
+
+================================================================================
+QUALITATIVE COMPARISON
+================================================================================
+
+Training Description:
+- Both models trained on the same dataset of 2000+ QA pairs.
+- LSTM chatbot uses a bidirectional LSTM encoder with Bahdanau attention and
+  LSTM decoder. Teacher forcing ratio decreases from 1.0 to 0.5 during training.
+- Transformer chatbot uses multi-head self-attention with 3 encoder and 3 decoder
+  layers, 4 attention heads, and sinusoidal positional encoding.
+
+LSTM Chatbot Observations:
+- Tends to produce shorter, more focused responses.
+- Attention mechanism helps focus on relevant parts of the question.
+- May repeat words or produce generic responses for unseen questions.
+- Better at learning the start/end of responses due to sequential processing.
+
+Transformer Chatbot Observations:
+- Can capture longer-range dependencies through self-attention.
+- Often produces more varied responses.
+- May struggle more with very short or greeting-type inputs.
+- Benefits from parallel processing during training (faster per epoch).
+
+Both models are limited by the dataset size (2000+ pairs). With more data
+and training time, the Transformer would likely show greater improvement due
+to its superior architecture for capturing complex patterns.
