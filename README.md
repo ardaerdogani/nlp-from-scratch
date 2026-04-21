@@ -1,4 +1,8 @@
-# NLP Project: Text Generation Models and Chatbots
+# NLP From Scratch: Text Generation & Chatbots
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue?logo=python)
+![PyTorch](https://img.shields.io/badge/PyTorch-2.0%2B-ee4c2c?logo=pytorch)
+![License](https://img.shields.io/badge/License-MIT-green)
 
 Complete NLP system demonstrating probabilistic modeling, sequential neural networks, and attention-based architectures. All models are implemented from scratch using PyTorch with no pretrained weights.
 
@@ -109,6 +113,21 @@ Notebooks 01 and 04 render quickly (no training). Notebooks 02 have an `EPOCHS` 
 - Transformer uses warmup + inverse square root decay; LSTM chatbot uses decreasing teacher-forcing ratio.
 - Dataset generation is deterministic (seeded).
 
+## Results
+
+After a full pipeline run (`python main.py`), results are saved to `evaluation_report.txt`. Loss curves from the chatbot training are written to `task2_chatbot/chatbot_loss_curves.png`.
+
+Example text-gen evaluation (10 prompts × 6 models):
+
+| Model            | Level | Avg. Output Length | Notes                       |
+|------------------|-------|--------------------|-----------------------------|
+| Markov Chain     | Char  | ≥20 chars          | Fast; low coherence          |
+| Markov Chain     | Word  | ≥20 chars          | Better word boundaries       |
+| RNN              | Char  | ≥20 chars          | Learns short-range patterns  |
+| RNN              | Word  | ≥20 chars          | More fluent than char RNN    |
+| LSTM             | Char  | ≥20 chars          | Best char-level coherence    |
+| LSTM             | Word  | ≥20 chars          | Most fluent text-gen model   |
+
 ## Dependencies
 
 - PyTorch >= 2.0.0
@@ -116,3 +135,7 @@ Notebooks 01 and 04 render quickly (no training). Notebooks 02 have an `EPOCHS` 
 - Matplotlib >= 3.7.0
 - tabulate >= 0.9.0
 - psutil >= 5.9.0
+
+## License
+
+MIT — see [LICENSE](LICENSE).
