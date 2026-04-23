@@ -9,17 +9,17 @@ TEXT GENERATION MODELS - TRAINING PERFORMANCE COMPARISON
 +-------------------+-----------------+----------------+--------------+
 | Model             | Training Time   | Memory Usage   | Final Loss   |
 +===================+=================+================+==============+
-| Char Markov Chain | 0.01s           | 3.5 MB         | N/A          |
+| Char Markov Chain | 0.15s           | 2.5 MB         | N/A          |
 +-------------------+-----------------+----------------+--------------+
-| Word Markov Chain | 0.00s           | 2.0 MB         | N/A          |
+| Word Markov Chain | 0.01s           | 2.0 MB         | N/A          |
 +-------------------+-----------------+----------------+--------------+
-| Char RNN          | 791.00s         | 35.5 MB        | 0.6734       |
+| Char RNN          | 101.61s         | 828.1 MB       | 0.6689       |
 +-------------------+-----------------+----------------+--------------+
-| Word RNN          | 61.92s          | 8.6 MB         | 0.7851       |
+| Word RNN          | 18.36s          | 2.0 MB         | 0.7746       |
 +-------------------+-----------------+----------------+--------------+
-| Char LSTM         | 2330.41s        | 54.4 MB        | 0.2887       |
+| Char LSTM         | 107.64s         | 2.5 MB         | 0.2943       |
 +-------------------+-----------------+----------------+--------------+
-| Word LSTM         | 78.56s          | -50.7 MB       | 0.8263       |
+| Word LSTM         | 20.24s          | 0.0 MB         | 0.7861       |
 +-------------------+-----------------+----------------+--------------+
 
 ================================================================================
@@ -31,57 +31,55 @@ TEXT GENERATION MODELS - OUTPUT COMPARISON (10 PROMPTS)
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
 | #   | Prompt             | Markov Chain                 | RNN                          | LSTM                         |
 +=====+====================+==============================+==============================+==============================+
-| #1  | The ancient forest | The analyzes the melody      | The ancient forestratusly.   | The ancient foresthissous    |
-|     |                    | impressive principles and    | Similarly. Sisiles that make | supports effectively.        |
-|     |                    | the flavorful desserts. the  | life artifacts without m...  | Understanding how the        |
-|     |                    | sp...                        |                              | culture un...                |
+| #1  | The ancient forest | The analyzes the melody      | The ancient forestery and    | The ancient foresthes        |
+|     |                    | impressive principles and    | the dish in many ways. The   | generously among the elegant |
+|     |                    | the flavorful desserts. the  | role of the wanderer         | perspectives. the recovery   |
+|     |                    | sp...                        | writin...                    | an...                        |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #2  | In the world of    | In the exhibitional          | In the world ofermently      | In the world of the path in  |
-|     |                    | conditional vital role in    | toward new artifacts, the    | shaping influential          |
-|     |                    | shaping the doctor inspires  | tender strategies. Both the  | traditions cannot be         |
-|     |                    | create...                    | in...                        | overstated....               |
+| #2  | In the world of    | In the exhibitional          | In the world ofers and       | In the world of our time. In |
+|     |                    | conditional vital role in    | delicious serves chational   | addition, the formula        |
+|     |                    | shaping the doctor inspires  | transforms compines dusiles. | discovers theoretically      |
+|     |                    | create...                    | C...                         | among...                     |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #3  | Science reveals    | ScienPeople have always been | Science reveals approaches.  | Science reveals and exotic   |
-|     |                    | associated without           | One cannot discuss           | grains define the road in    |
-|     |                    | mentioning groundbreaking    | ingredient years and lasting | many ways. Understanding     |
-|     |                    | compre...                    | imp...                       | ho...                        |
+| #3  | Science reveals    | ScienPeople have always been | Science reveals continue to  | Science reveals the          |
+|     |                    | associated without           | evolve. Meanwhile, the       | boundaries of reliable       |
+|     |                    | mentioning groundbreaking    | formidable traditions.       | taches. The connection       |
+|     |                    | compre...                    | the t...                     | between the th...            |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #4  | The computer proc  | The connection between the   | The computer procepent       | The computer processes the   |
-|     |                    | coach and exotic beaches     | conquered the boundaries of  | concepts that make life      |
-|     |                    | that the movements, the      | vibrant allastr colorse      | restorative. The importance  |
-|     |                    | lege...                      | trans...                     | o...                         |
+| #4  | The computer proc  | The connection between the   | The computer proces play a   | The computer processes and   |
+|     |                    | coach and exotic beaches     | vital role in progress.      | lasting impact. The role of  |
+|     |                    | that the movements, the      | Meanwhile, the magnificent   | the restaurant in shaping... |
+|     |                    | lege...                      | br...                        |                              |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #5  | Every day the      | Every day, the savory        | Every day thererue has long  | Every day thed with great    |
-|     |                    | effort, the techniques to    | been associated with salads  | purpose, shaping the dynamic |
-|     |                    | the explore follows the      | define the team inspires...  | emotions of our time. In ... |
-|     |                    | movement...                  |                              |                              |
+| #5  | Every day the      | Every day, the savory        | Every day thery inspires the | Every day ther proves the    |
+|     |                    | effort, the techniques to    | boundaries of colony in many | visions, the secure world    |
+|     |                    | the explore follows the      | ways.                        | takes notice. The role of    |
+|     |                    | movement...                  | The study of ho...           | th...                        |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #6  | Through careful    | Through flavor creative      | Through carefuly.            | Through carefuly, the        |
-|     |                    | vital role of the            | Significantly, in recent     | foundational disciplines     |
-|     |                    | breathtaking elements and    | years, the canvas supports   | continue to evolve. Every    |
-|     |                    | lastingly. B...              | the very c...                | day, th...                   |
+| #6  | Through careful    | Through flavor creative      | Through carefuly across all  | Through carefuly toward new  |
+|     |                    | vital role of the            | movements cannot be          | discoveries. The study of    |
+|     |                    | breathtaking elements and    | overstated. The importance   | how the technique            |
+|     |                    | lastingly. B...              | of th...                     | expresse...                  |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #7  | The importance of  | The importance of the        | The importance oferming      | The importance ofer has long |
-|     |                    | observation present day, the | presents the eamaly theives  | been associated with crispy  |
-|     |                    | scholar inspiring rich       | expertly, transforming our   | grains and lasting impa...   |
-|     |                    | desser...                    | v...                         |                              |
+| #7  | The importance of  | The importance of the        | The importance of the        | The importance ofth the      |
+|     |                    | observation present day, the | touriately toward new        | research has long been       |
+|     |                    | scholar inspiring rich       | shapes. Many believe that    | associated with              |
+|     |                    | desser...                    | the team i...                | comprehensive ide...         |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #8  | Many believe that  | Many believe that the        | Many believe thater          | Many believe thattames and   |
-|     |                    | explore science.             | conquered ssivelinn          | theoretical phenomena define |
-|     |                    | In the importantly,          | remarkably.                  | the technique in many wa...  |
-|     |                    | transforming methods...      | In the realm of complex      |                              |
-|     |                    |                              | tim...                       |                              |
+| #8  | Many believe that  | Many believe that the        | Many believe thatthe         | Many believe thattand of     |
+|     |                    | explore science.             | touchery in many ways. The   | food does. Experts agree     |
+|     |                    | In the importantly,          | study of how the exhibition  | that the therapy maintains   |
+|     |                    | transforming methods...      | has ...                      | min...                       |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #9  | Understanding how  | Understated. As a result,    | Understanding howens atterts | Understanding howel meatures |
-|     |                    | many ways. Both the road     | with great purpose, shaping  | reveals deep truths about    |
-|     |                    | wanderer discuss pictures    | the nutritious couss ou...   | enduring achievements. Th... |
-|     |                    | rev...                       |                              |                              |
+| #9  | Understanding how  | Understated. As a result,    | Understanding howter, the    | Understanding how the chef   |
+|     |                    | many ways. Both the road     | role of the student writings | tastes creatively. The       |
+|     |                    | wanderer discuss pictures    | of our time. The role of ... | connection between the       |
+|     |                    | rev...                       |                              | kitchen...                   |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
-| #10 | The connection bet | The connected. The future    | The connection beter and the | The connection beter and     |
-|     |                    | connections of effectives    | study of how the alliance    | more connected world.        |
-|     |                    | peaceful goals. As a         | conquered restores sechos... | ---                          |
-|     |                    | result,...                   |                              | Few subjects capture human   |
-|     |                    |                              |                              | ...                          |
+| #10 | The connection bet | The connected. The future    | The connection beter and     | The connection beteen the    |
+|     |                    | connections of effectives    | more connected world, one    | professor and the charming   |
+|     |                    | peaceful goals. As a         | must appreciate the          | mountains play a vital       |
+|     |                    | result,...                   | importanc...                 | role...                      |
 +-----+--------------------+------------------------------+------------------------------+------------------------------+
 
 --- Word-Level Models ---
@@ -90,54 +88,54 @@ TEXT GENERATION MODELS - OUTPUT COMPARISON (10 PROMPTS)
 | #   | Prompt                       | Markov Chain                 | RNN                          | LSTM                         |
 +=====+==============================+==============================+==============================+==============================+
 | #1  | the ancient forest stretches | the ancient records play a   | the ancient forest stretches | the ancient forest stretches |
-|     |                              | vital role in progress. in   | among the balanced           | gently, the foundational     |
-|     |                              | the years to come. ---       | functions. in fact, the      | world takes notice. on       |
-|     |                              | the...                       | study of...                  | the...                       |
+|     |                              | vital role in progress. in   | toward new strategies.       | freely. when the open meadow |
+|     |                              | the years to come. ---       | importantly, the importance  | grows the branches, th...    |
+|     |                              | the...                       | ...                          |                              |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
-| #2  | in the world of science      | in the years to come. ---    | in the world of science full | in the world of science      |
-|     |                              | people have always been      | of wonder and complexity.    | endless opportunities for    |
-|     |                              | drawn to the present day,    | every day, the exercise p... | learning and growth. the     |
-|     |                              | hist...                      |                              | impor...                     |
+| #2  | in the world of science      | in the years to come. ---    | in the world of science the  | in the world of science      |
+|     |                              | people have always been      | professor supports with      | cannot discuss tranquil      |
+|     |                              | drawn to the present day,    | great purpose, shaping the   | shadows without mentioning   |
+|     |                              | hist...                      | e...                         | how t...                     |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
 | #3  | the computer processes data  | the computer processes the   | the computer processes <UNK> | the computer processes <UNK> |
-|     |                              | boundaries of aromatic       | importantly, the importance  | the digital world takes      |
-|     |                              | wines. the bread serves      | of the empire grows as ...   | notice. in recent years,     |
-|     |                              | freshl...                    |                              | th...                        |
+|     |                              | boundaries of aromatic       | in recent years, the chef    | the methods that make life   |
+|     |                              | wines. the bread serves      | presents the boundaries o... | inclusive. however, when...  |
+|     |                              | freshl...                    |                              |                              |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
 | #4  | every day the student learns | every day people have always | every <UNK> the student      | every <UNK> the student      |
-|     |                              | been drawn to the mysteries  | learns boundaries of         | learns the study of how the  |
-|     |                              | of food. the connection...   | practical skills. every day, | dish serves reveals deep     |
-|     |                              |                              | the sc...                    | tru...                       |
+|     |                              | been drawn to the mysteries  | learns among the balanced    | learns among the dynamic     |
+|     |                              | of food. the connection...   | functions. in fact, the      | movements. on the other      |
+|     |                              |                              | import...                    | hand, u...                   |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
-| #5  | through careful effort the   | through careful people have  | through <UNK> <UNK> the in   | through <UNK> <UNK> the      |
-|     |                              | always been drawn to the     | many ways. as the landscape  | soups continue to evolve.    |
-|     |                              | present day, education has   | wanders slowly, the pictu... | the theory has long been     |
-|     |                              | ...                          |                              | assoc...                     |
+| #5  | through careful effort the   | through careful people have  | through <UNK> <UNK> the      | through <UNK> <UNK> the      |
+|     |                              | always been drawn to the     | soups prepares delicately.   | molecules and rigorous       |
+|     |                              | present day, education has   | the harvest combines with    | molecules define the         |
+|     |                              | ...                          | gre...                       | practice in ...              |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
 | #6  | the importance of education  | the importance of the        | the importance of education  | the importance of education  |
-|     |                              | lecture in shaping           | far beyond its obvious       | in shaping the approaches    |
-|     |                              | progressive concepts cannot  | boundaries. when the         | cannot be overstated. as     |
-|     |                              | be overstat...               | curricul...                  | t...                         |
+|     |                              | lecture in shaping           | helps us build a better and  | --- from ancient times to    |
+|     |                              | progressive concepts cannot  | more connected world. --...  | the present day, science     |
+|     |                              | be overstat...               |                              | h...                         |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
-| #7  | many believe that the        | many believe that the path   | many believe that the        | many believe that the meadow |
-|     |                              | discovers peacefully,        | developed the very muscles   | the very achievements we     |
-|     |                              | transforming our view of     | we depend upon. the role of  | depend upon. it is well      |
-|     |                              | achiev...                    | the...                       | kn...                        |
+| #7  | many believe that the        | many believe that the path   | many believe that the        | many believe that the        |
+|     |                              | discovers peacefully,        | inspires the very frameworks | strategies in shaping        |
+|     |                              | transforming our view of     | we depend upon. in recent    | therapeutic foods cannot be  |
+|     |                              | achiev...                    | yea...                       | overstat...                  |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
 | #8  | understanding how the system | understanding how the        | understanding how the <UNK>  | understanding how the <UNK>  |
-|     |                              | medicine restores mindfully. | is key to appreciating       | is key to appreciating       |
-|     |                              | the connection between the   | meaningful concepts. many    | influential territories.     |
-|     |                              | ki...                        | bel...                       | sign...                      |
+|     |                              | medicine restores mindfully. | is key to appreciating       | is key to appreciating vast  |
+|     |                              | the connection between the   | active functions. the        | battles. consequently, m...  |
+|     |                              | ki...                        | connect...                   |                              |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
-| #9  | the role of the artist       | the role of the course       | the role of the artist of    | the role of the artist       |
-|     |                              | advances collaboratively,    | our time. in recent years,   | travel has evolved           |
-|     |                              | transforming our view of     | the diet heals the           | remarkably. the importance   |
-|     |                              | oils. ...                    | boundari...                  | of the rese...               |
+| #9  | the role of the artist       | the role of the course       | the role of the artist       | the role of the artist       |
+|     |                              | advances collaboratively,    | reflects beautifully.        | formidable discoveries in    |
+|     |                              | transforming our view of     | through importance of the    | addition, experts agree that |
+|     |                              | oils. ...                    | masterpie...                 | th...                        |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
-| #10 | the athlete trains hard      | the athlete grows as organic | the athlete trains <UNK>     | the athlete trains <UNK> the |
-|     |                              | spices become more central.  | every day, the people        | role of the colony in        |
-|     |                              | in the realm of diverse...   | preserved the discoveries    | shaping prosperous           |
-|     |                              |                              | that ma...                   | achievemen...                |
+| #10 | the athlete trains hard      | the athlete grows as organic | the athlete trains <UNK> one | the athlete trains <UNK> the |
+|     |                              | spices become more central.  | cannot discuss effective     | desserts that make life      |
+|     |                              | in the realm of diverse...   | ideas without mentioning     | fundamental. in the realm    |
+|     |                              |                              | h...                         | o...                         |
 +-----+------------------------------+------------------------------+------------------------------+------------------------------+
 
 ================================================================================
@@ -178,9 +176,9 @@ CHATBOT MODELS - TRAINING PERFORMANCE COMPARISON
 +---------------------+-----------------+----------+--------------+--------------+
 | Model               | Training Time   | Memory   |   Final Loss |   Parameters |
 +=====================+=================+==========+==============+==============+
-| LSTM Chatbot        | 323.25s         | 284.3 MB |       0.0684 |    6,019,947 |
+| LSTM Chatbot        | 105.23s         | 40.4 MB  |       0.1014 |    6,019,947 |
 +---------------------+-----------------+----------+--------------+--------------+
-| Transformer Chatbot | 92.63s          | 4.6 MB   |       4.3943 |    1,971,819 |
+| Transformer Chatbot | 33.44s          | 66.5 MB  |       4.3724 |    1,971,819 |
 +---------------------+-----------------+----------+--------------+--------------+
 
 --- Loss Curves ---
@@ -191,45 +189,42 @@ CHATBOT MODELS - RESPONSE COMPARISON (10 TEST QUESTIONS)
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
 | #   | Question                       | LSTM Response                       | Transformer Response                |
 +=====+================================+=====================================+=====================================+
-| #1  | What is the capital of France? | the capital of france is paris.     | the capital of the capital of the   |
-|     |                                |                                     | capital of the capital of the       |
-|     |                                |                                     | capital of the c...                 |
+| #1  | What is the capital of France? | the capital of france is paris.     | the capital of course. the capital  |
+|     |                                |                                     | of course. the capital of course.   |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #2  | How does gravity work?         | gravity works by creating an        | let me explain. the capital of a    |
-|     |                                | attractive force proportional to    | good question.                      |
-|     |                                | the masses involve...               |                                     |
+| #2  | How does gravity work?         | gravity works by creating an        | good question. the answer: the      |
+|     |                                | attractive force proportional to    | answer: the answer: the answer: the |
+|     |                                | the masses involve...               | answer: the a...                    |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #3  | What is a computer?            | a computer is an electronic device  | to help! is a good question. a good |
+| #3  | What is a computer?            | a computer is an electronic device  | of course. a good question. a good  |
 |     |                                | that processes data according to    | question. a good question. a good   |
-|     |                                | instructions...                     | question. ...                       |
+|     |                                | instructions...                     | question. a...                      |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #4  | What is photosynthesis?        | photosynthesis is the process by    | good question. the capital of       |
-|     |                                | which plants convert sunlight into  | course. of course.                  |
+| #4  | What is photosynthesis?        | photosynthesis is the process by    | of course. the capital of course.   |
+|     |                                | which plants convert sunlight into  | the capital of course.              |
 |     |                                | energy.                             |                                     |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #5  | Hello!                         | hello! how can i help you today?    | certainly. to answer that, the      |
-|     |                                |                                     | capital of to answer that, to       |
-|     |                                |                                     | answer that, to ans...              |
+| #5  | Hello!                         | hello! how can i help you today?    | to the process of course. the       |
+|     |                                |                                     | process of course.                  |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #6  | What is the largest ocean?     | the pacific ocean is the largest    | the capital of the capital of the   |
-|     |                                | ocean on earth.                     | capital of the capital of the       |
-|     |                                |                                     | capital of the c...                 |
+| #6  | What is the largest ocean?     | the pacific ocean is the largest    | the capital of course. the capital  |
+|     |                                | ocean on earth.                     | of course. the capital of course.   |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #7  | Who was the first president of | george washington was the first     | the capital of the capital of the   |
-|     | the United States?             | president of the united states.     | capital of the capital of the       |
-|     |                                |                                     | capital of the c...                 |
+| #7  | Who was the first president of | george washington was the first     | the capital of the capital of       |
+|     | the United States?             | president of the united states.     | course. the capital of course. the  |
+|     |                                |                                     | capital of the ...                  |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #8  | What is machine learning?      | machine learning is a subset of ai  | to answer that, a good question. a  |
-|     |                                | where systems learn from data       | good question. a good question. a   |
-|     |                                | without explici...                  | good questi...                      |
+| #8  | What is machine learning?      | machine learning is a subset of ai  | of course. is a good question. is a |
+|     |                                | where systems learn from data       | good question.                      |
+|     |                                | without explici...                  |                                     |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #9  | What is a prime number?        | a prime number is a number greater  | good question. a good question. a   |
-|     |                                | than one that has no divisors other | good question. a good question. a   |
-|     |                                | than one ...                        | good questio...                     |
+| #9  | What is a prime number?        | a prime number is a number greater  | of course. a good question. a good  |
+|     |                                | than one that has no divisors other | question. a number is a number is a |
+|     |                                | than one ...                        | number is...                        |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
-| #10 | Tell me about climate change.  | climate is the long-term pattern of | good question. the answer: the      |
-|     |                                | weather conditions in a region. it  | capital of course. of course. is    |
-|     |                                | plays an ...                        | the answer: the ...                 |
+| #10 | Tell me about climate change.  | climate is the process of electric  | of course. the answer: is a good    |
+|     |                                | charge through conductors. it plays | question. the process of course.    |
+|     |                                | an import...                        | the process of...                   |
 +-----+--------------------------------+-------------------------------------+-------------------------------------+
 
 ================================================================================
