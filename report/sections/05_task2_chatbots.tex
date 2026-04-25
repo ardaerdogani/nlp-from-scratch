@@ -1,0 +1,91 @@
+\section{Task 2: Chatbot Models}
+\label{sec:task2}
+
+Task 2 trains two sequence-to-sequence models to answer factual questions. Both
+share the same vocabulary and dataset split.
+
+\subsection{LSTM Encoder-Decoder with Bahdanau Attention}
+
+The LSTM chatbot (\texttt{models/lstm\_chatbot.py}) follows the classic
+encoder-decoder paradigm with an attention mechanism.
+
+\subsubsection*{Encoder}
+
+A \textbf{bidirectional} 2-layer LSTM reads the input question token by token.
+Bidirectionality means the encoder processes each word in both left-to-right and
+right-to-left order, so each output position has context from both sides of the
+sentence. The forward and backward hidden states are concatenated and projected
+to the decoder's hidden dimension via a linear layer.
+
+\subsubsection*{Attention}
+
+At each decoding step, Bahdanau attention assigns a weight to every encoder
+output, indicating how relevant that input token is for generating the current
+output word. These weights produce a context vector — a weighted summary of the
+input — which is passed to the decoder alongside the previous predicted word.
+This allows the model to focus on different parts of the question at each step.
+
+\subsubsection*{Decoder}
+
+A unidirectional LSTM decoder generates the answer one word at a time. At each
+step it receives the previous predicted word and the attention context vector,
+then predicts the next word from the vocabulary.
+
+\subsubsection*{Teacher Forcing}
+
+During training, the correct previous word (rather than the model's own
+prediction) is fed to the decoder. This technique, called teacher forcing,
+provides a strong training signal early on. The ratio decreases from 1.0 to 0.5
+during training, gradually encouraging the model to rely on its own outputs.
+
+\textbf{Architecture summary:}
+\begin{itemize}
+    \item Embedding dimension: 128
+    \item Hidden dimension: 256 (bidirectional encoder: 512 total)
+    \item Total parameters: 6,019,947
+\end{itemize}
+
+\subsection{Transformer Encoder-Decoder}
+
+The Transformer chatbot (\texttt{models/transformer\_chatbot.py}) implements the
+full encoder-decoder Transformer \cite{vaswani2017} from scratch.
+
+\subsubsection*{Positional Encoding}
+
+Since the Transformer processes all tokens in parallel rather than sequentially,
+it has no built-in sense of word order. Sinusoidal positional encodings are added
+to the input embeddings to provide this information — each position gets a unique
+pattern of sine and cosine values that the model can learn to interpret.
+
+\subsubsection*{Encoder and Decoder Stacks}
+
+Each encoder layer applies multi-head self-attention (every word attends to every
+other word) followed by a feed-forward network, with residual connections and
+layer normalisation around each sub-layer. The decoder has the same structure but
+adds a cross-attention layer that attends over the encoder outputs, connecting the
+question representation to the answer being generated.
+
+\subsubsection*{Learning Rate Schedule}
+
+A warmup schedule is used: the learning rate increases gradually for the first
+few hundred steps, then decays. This prevents the model from making large
+destructive weight updates at the start of training when its parameters are still
+random.
+
+\textbf{Architecture summary:}
+\begin{itemize}
+    \item Model dimension: 128
+    \item Feed-forward dimension: 512
+    \item Attention heads: 4
+    \item Encoder layers: 3 \quad Decoder layers: 3
+    \item Total parameters: 1,971,819
+\end{itemize}
+
+\subsection{Training Configuration}
+
+Both chatbots are trained for \textbf{30 epochs} on the same 2,000+ QA pairs with:
+\begin{itemize}
+    \item Optimiser: Adam (LSTM), Adam with warmup schedule (Transformer)
+    \item Gradient clipping: max norm $= 1.0$
+    \item Loss: cross-entropy (padding tokens ignored)
+\end{itemize}

@@ -1,0 +1,57 @@
+\section{Task 1: Text Generation Models}
+\label{sec:task1}
+
+Six models are trained and evaluated in Task 1. They form a 3$\times$2 grid:
+three architectures (Markov Chain, RNN, LSTM) applied at two tokenization levels
+(character, word).
+
+\subsection{Markov Chain}
+
+The Markov Chain implementation (\texttt{models/markov\_chain.py}) builds a
+transition table from consecutive n-gram sequences. No neural network is involved.
+
+\begin{itemize}
+    \item \textbf{Character-level} uses order $n = 5$: the next character is
+          sampled from the empirical distribution of characters that followed the
+          same 5-character context in the training corpus.
+    \item \textbf{Word-level} uses order $n = 2$: the next word is sampled given
+          the previous two words.
+\end{itemize}
+
+Generation simply looks up the current state in the transition table and samples
+proportionally to observed frequencies. If a state has never been seen, the model
+restarts from a random known starting n-gram.
+
+\subsection{Recurrent Neural Network (RNN)}
+
+The RNN model (\texttt{models/rnn\_model.py}) processes tokens sequentially via
+a 2-layer vanilla RNN:
+
+\begin{enumerate}
+    \item An embedding layer maps each token index to a dense vector.
+    \item Two RNN layers with \texttt{tanh} activation update the hidden state.
+    \item A linear output layer projects the hidden state to a vocabulary-size
+          logit vector.
+\end{enumerate}
+
+Training uses cross-entropy loss with gradient clipping (max norm $= 1.0$) and
+the Adam optimiser. Temperature sampling ($T = 0.8$) is used during generation
+to balance diversity and coherence.
+
+\subsection{Long Short-Term Memory (LSTM)}
+
+The LSTM model (\texttt{models/lstm\_model.py}) has the same architecture as the
+RNN but replaces the RNN cells with LSTM cells, adding a cell state and three
+gates. The gating mechanism allows gradients to flow without vanishing, enabling
+the model to capture patterns across many more timesteps.
+
+\subsection{Training Configuration}
+
+All neural models (RNN and LSTM) are trained for \textbf{20 epochs} with:
+\begin{itemize}
+    \item Optimiser: Adam
+    \item Gradient clipping: max norm $= 1.0$
+    \item Batch size: 64
+    \item Sequence length: 100 tokens (char), 20 tokens (word)
+    \item Generation temperature: $T = 0.8$
+\end{itemize}

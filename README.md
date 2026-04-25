@@ -15,7 +15,6 @@ nlp_project/
 ├── main.py                          # Runs the full pipeline (both tasks)
 ├── requirements.txt                 # Python dependencies
 ├── README.md                        # This file
-├── evaluation_report.txt            # Combined report from last main.py run
 ├── 04_summary.ipynb                 # Cross-task wrap-up notebook
 │
 ├── shared/                          # Helpers used by both tasks
@@ -25,7 +24,7 @@ nlp_project/
 ├── task1_text_generation/           # TASK 1 — Text generation (6 models)
 │   ├── data/
 │   │   ├── generate_dataset.py      # Text corpus generator (12,000+ words)
-│   │   └── corpus.txt               # Generated corpus (after running)
+│   │   └── corpus.txt               # Generated corpus (created on first run)
 │   ├── models/
 │   │   ├── markov_chain.py          # Markov Chain (char + word level)
 │   │   ├── rnn_model.py             # Vanilla RNN (char + word level)
@@ -39,17 +38,18 @@ nlp_project/
 └── task2_chatbot/                   # TASK 2 — Chatbots (2 models)
     ├── data/
     │   ├── generate_qa_dataset.py   # QA pairs generator (2,000+ pairs)
-    │   └── qa_pairs.json            # Generated pairs (after running)
+    │   └── qa_pairs.json            # Generated pairs (created on first run)
     ├── models/
     │   ├── lstm_chatbot.py          # LSTM seq2seq with Bahdanau attention
     │   └── transformer_chatbot.py   # Transformer from scratch
     ├── train.py                     # Training for both chatbots
     ├── evaluate.py                  # 10-question comparison + loss plot
-    ├── chatbot_loss_curves.png      # Saved loss curves from last run
     └── notebooks/
         ├── 01_data.ipynb            # QA dataset exploration
         └── 02_chatbots.ipynb        # Training + evaluation
 ```
+
+> **Generated files** — `evaluation_report.txt`, `task2_chatbot/chatbot_loss_curves.png`, `corpus.txt`, and `qa_pairs.json` are all produced by running the pipeline. They are not tracked in git; re-run `main.py` to reproduce them.
 
 ## Setup
 
@@ -71,14 +71,14 @@ Six models total (3 architectures × 2 tokenization levels):
 | LSTM         | Embedding + 2-layer LSTM + Linear | Embedding + 2-layer LSTM + Linear |
 
 - **Dataset**: 12,000+ words of procedurally generated English text across 10 topics (see `task1_text_generation/data/generate_dataset.py`).
-- **Evaluation**: 10 prompts × 6 models, outputs ≥20 characters each, plus training-time / memory / loss table in `evaluation_report.txt`.
+- **Evaluation**: 10 prompts × 6 models, plus training-time / memory / loss table saved to `evaluation_report.txt`.
 
 ## Task 2: Chatbot Models
 
 - **Dataset**: 2,000+ QA pairs (geography, science, math, technology, history, general knowledge) from `task2_chatbot/data/generate_qa_dataset.py`.
 - **LSTM Chatbot** — bidirectional LSTM encoder, LSTM decoder with Bahdanau attention, teacher-forcing with decreasing ratio (embed_dim=128, hidden_dim=256).
 - **Transformer Chatbot** — from-scratch encoder-decoder with multi-head attention (4 heads, 3+3 layers), sinusoidal positional encoding, warmup + inverse-sqrt LR schedule (d_model=128, d_ff=512).
-- **Evaluation**: 10 questions × 2 models, loss curves PNG (`task2_chatbot/chatbot_loss_curves.png`), plus training-performance table.
+- **Evaluation**: 10 questions × 2 models, loss curves saved to `task2_chatbot/chatbot_loss_curves.png`, plus training-performance table.
 
 ## Running Individual Components
 
@@ -117,16 +117,25 @@ Notebooks 01 and 04 render quickly (no training). Notebooks 02 have an `EPOCHS` 
 
 After a full pipeline run (`python main.py`), results are saved to `evaluation_report.txt`. Loss curves from the chatbot training are written to `task2_chatbot/chatbot_loss_curves.png`.
 
-Example text-gen evaluation (10 prompts × 6 models):
+### Task 1 — Text Generation Training Performance
 
-| Model            | Level | Avg. Output Length | Notes                       |
-|------------------|-------|--------------------|-----------------------------|
-| Markov Chain     | Char  | ≥20 chars          | Fast; low coherence          |
-| Markov Chain     | Word  | ≥20 chars          | Better word boundaries       |
-| RNN              | Char  | ≥20 chars          | Learns short-range patterns  |
-| RNN              | Word  | ≥20 chars          | More fluent than char RNN    |
-| LSTM             | Char  | ≥20 chars          | Best char-level coherence    |
-| LSTM             | Word  | ≥20 chars          | Most fluent text-gen model   |
+| Model            | Level | Training Time | Final Loss | Notes                                        |
+|------------------|-------|---------------|------------|----------------------------------------------|
+| Markov Chain     | Char  | 0.15s         | —          | No gradient descent; pure frequency table    |
+| Markov Chain     | Word  | 0.01s         | —          | Fastest; copies real phrases from corpus     |
+| RNN              | Char  | 101.6s        | 0.6689     | Learns spelling patterns; vanishing gradient |
+| RNN              | Word  | 18.4s         | 0.7746     | Faster than char; limited long-range context |
+| LSTM             | Char  | 107.6s        | **0.2943** | Best loss; gates retain long character context |
+| LSTM             | Word  | 20.2s         | 0.7861     | Real words; word-level needs more data       |
+
+### Task 2 — Chatbot Training Performance
+
+| Model               | Training Time | Parameters | Final Loss | Notes                                          |
+|---------------------|---------------|------------|------------|------------------------------------------------|
+| LSTM Chatbot        | 105.2s        | 6,019,947  | **0.1014** | Low loss; teacher forcing aids convergence     |
+| Transformer Chatbot | 33.4s         | 1,971,819  | 4.3724     | 3× faster; needs more epochs/data to converge |
+
+The Transformer trains faster per epoch due to parallel self-attention, but its warmup LR schedule and lack of teacher forcing mean it requires significantly more data and training steps to reach the LSTM's loss on this small dataset.
 
 ## Dependencies
 
