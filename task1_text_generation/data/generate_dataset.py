@@ -1,8 +1,3 @@
-"""
-Text corpus generator for NLP text generation models.
-Generates 10,000+ words of English text across multiple topics.
-"""
-
 import random
 import os
 
@@ -323,9 +318,7 @@ CONCLUSION_TEMPLATES = [
     "Understanding {topic} helps us build a better and more connected world."
 ]
 
-
 def fill_template(template, topic_data, topic_name):
-    """Fill a sentence template with random words from the topic vocabulary."""
     result = template
     result = result.replace("{topic}", topic_name)
     result = result.replace("{subject}", random.choice(topic_data["subjects"]))
@@ -335,9 +328,7 @@ def fill_template(template, topic_data, topic_name):
     result = result.replace("{adverb}", random.choice(topic_data["adverbs"]))
     return result
 
-
 def generate_paragraph(topic_name, topic_data, num_sentences=5):
-    """Generate a paragraph about a given topic."""
     sentences = []
     for i in range(num_sentences):
         template = random.choice(TEMPLATES)
@@ -347,9 +338,7 @@ def generate_paragraph(topic_name, topic_data, num_sentences=5):
         sentences.append(sentence)
     return " ".join(sentences)
 
-
 def generate_section(topic_name, topic_data, num_paragraphs=4):
-    """Generate a multi-paragraph section about a topic."""
     paragraphs = []
     intro = fill_template(random.choice(INTRO_TEMPLATES), topic_data, topic_name)
     paragraphs.append(intro)
@@ -364,9 +353,7 @@ def generate_section(topic_name, topic_data, num_paragraphs=4):
 
     return "\n\n".join(paragraphs)
 
-
 def generate_corpus(target_words=12000, seed=42):
-    """Generate a text corpus with at least target_words words."""
     random.seed(seed)
     sections = []
     word_count = 0
@@ -383,9 +370,7 @@ def generate_corpus(target_words=12000, seed=42):
     corpus = "\n\n---\n\n".join(sections)
     return corpus
 
-
 def main():
-    """Generate and save the text corpus."""
     output_dir = os.path.dirname(os.path.abspath(__file__))
     output_path = os.path.join(output_dir, "corpus.txt")
 
@@ -399,7 +384,6 @@ def main():
     print(f"Character count: {len(corpus)}")
     print(f"Saved to: {output_path}")
     return corpus
-
 
 if __name__ == "__main__":
     main()

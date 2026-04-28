@@ -1,8 +1,3 @@
-"""
-Evaluation script for chatbot models.
-Generates comparison tables with 10 test questions for both chatbots.
-"""
-
 import os
 import sys
 import matplotlib
@@ -11,7 +6,6 @@ import matplotlib.pyplot as plt
 from tabulate import tabulate
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 
 TEST_QUESTIONS = [
     "What is the capital of France?",
@@ -26,9 +20,7 @@ TEST_QUESTIONS = [
     "Tell me about climate change.",
 ]
 
-
 def plot_loss_curves(lstm_losses, transformer_losses, output_dir):
-    """Plot and save training loss curves for both chatbot models."""
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
 
     ax1.plot(range(1, len(lstm_losses) + 1), lstm_losses, "b-o", markersize=3, label="LSTM Chatbot")
@@ -52,18 +44,7 @@ def plot_loss_curves(lstm_losses, transformer_losses, output_dir):
     print(f"  Loss curves saved to: {plot_path}")
     return plot_path
 
-
 def evaluate_chatbots(tokenizer, chatbot_results, device="cpu"):
-    """
-    Run test questions through both chatbots and build comparison tables.
-
-    Args:
-        tokenizer: Shared WordTokenizer.
-        chatbot_results: Dict from train_all_chatbots().
-
-    Returns:
-        Formatted comparison results as string.
-    """
     output_lines = []
 
     # =============================================
@@ -148,30 +129,6 @@ def evaluate_chatbots(tokenizer, chatbot_results, device="cpu"):
     output_lines.append("\n" + "=" * 80)
     output_lines.append("QUALITATIVE COMPARISON")
     output_lines.append("=" * 80)
-    output_lines.append("""
-Training Description:
-- Both models trained on the same dataset of 2000+ QA pairs.
-- LSTM chatbot uses a bidirectional LSTM encoder with Bahdanau attention and
-  LSTM decoder. Teacher forcing ratio decreases from 1.0 to 0.5 during training.
-- Transformer chatbot uses multi-head self-attention with 3 encoder and 3 decoder
-  layers, 4 attention heads, and sinusoidal positional encoding.
-
-LSTM Chatbot Observations:
-- Tends to produce shorter, more focused responses.
-- Attention mechanism helps focus on relevant parts of the question.
-- May repeat words or produce generic responses for unseen questions.
-- Better at learning the start/end of responses due to sequential processing.
-
-Transformer Chatbot Observations:
-- Can capture longer-range dependencies through self-attention.
-- Often produces more varied responses.
-- May struggle more with very short or greeting-type inputs.
-- Benefits from parallel processing during training (faster per epoch).
-
-Both models are limited by the dataset size (2000+ pairs). With more data
-and training time, the Transformer would likely show greater improvement due
-to its superior architecture for capturing complex patterns.
-""")
 
     result_text = "\n".join(output_lines)
     print(result_text)

@@ -1,9 +1,3 @@
-"""
-Training script for both chatbot models:
-- LSTM seq2seq chatbot
-- Transformer chatbot
-"""
-
 import time
 import json
 import os
@@ -20,15 +14,11 @@ from task2_chatbot.models.transformer_chatbot import TransformerChatbot
 from shared.tokenizer import WordTokenizer
 from shared.dataset import QADataset, qa_collate_fn
 
-
 def get_memory_mb():
-    """Get current process memory usage in MB."""
     process = psutil.Process(os.getpid())
     return process.memory_info().rss / 1024 / 1024
 
-
 def build_tokenizer(qa_pairs):
-    """Build a shared word tokenizer from QA pairs."""
     all_text = []
     for pair in qa_pairs:
         all_text.append(pair["question"])
@@ -37,15 +27,8 @@ def build_tokenizer(qa_pairs):
     tokenizer.fit(all_text)
     return tokenizer
 
-
 def train_lstm_chatbot(qa_pairs, tokenizer, batch_size=32, epochs=30,
                        lr=0.001, device="cpu"):
-    """
-    Train LSTM seq2seq chatbot.
-
-    Returns:
-        Trained model and training stats.
-    """
     print("\n--- Training LSTM Chatbot ---")
     start_time = time.time()
     start_mem = get_memory_mb()
@@ -116,15 +99,8 @@ def train_lstm_chatbot(qa_pairs, tokenizer, batch_size=32, epochs=30,
         "final_loss": losses[-1]
     }
 
-
 def train_transformer_chatbot(qa_pairs, tokenizer, batch_size=32, epochs=30,
                                lr=0.0005, device="cpu"):
-    """
-    Train Transformer chatbot.
-
-    Returns:
-        Trained model and training stats.
-    """
     print("\n--- Training Transformer Chatbot ---")
     start_time = time.time()
     start_mem = get_memory_mb()
@@ -206,14 +182,7 @@ def train_transformer_chatbot(qa_pairs, tokenizer, batch_size=32, epochs=30,
         "final_loss": losses[-1]
     }
 
-
 def train_all_chatbots(qa_pairs, device="cpu", epochs=30):
-    """
-    Train both chatbot models.
-
-    Returns:
-        tokenizer, dict of (model, stats) for each chatbot.
-    """
     tokenizer = build_tokenizer(qa_pairs)
     print(f"Chatbot vocabulary size: {tokenizer.vocab_size}")
 
@@ -230,7 +199,6 @@ def train_all_chatbots(qa_pairs, device="cpu", epochs=30):
     results["transformer_chatbot"] = (transformer_model, transformer_stats)
 
     return tokenizer, results
-
 
 if __name__ == "__main__":
     data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")

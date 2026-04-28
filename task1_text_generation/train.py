@@ -1,9 +1,3 @@
-"""
-Training script for all 6 text generation models:
-- Character-level: Markov Chain, RNN, LSTM
-- Word-level: Markov Chain, RNN, LSTM
-"""
-
 import time
 import os
 import sys
@@ -20,15 +14,11 @@ from task1_text_generation.models.lstm_model import LSTMModel
 from shared.tokenizer import CharTokenizer, WordTokenizer
 from shared.dataset import TextGenDataset
 
-
 def get_memory_mb():
-    """Get current process memory usage in MB."""
     process = psutil.Process(os.getpid())
     return process.memory_info().rss / 1024 / 1024
 
-
 def train_markov_char(corpus, order=5):
-    """Train character-level Markov Chain model."""
     print("\n--- Training Character-level Markov Chain (order={}) ---".format(order))
     start_time = time.time()
     start_mem = get_memory_mb()
@@ -46,9 +36,7 @@ def train_markov_char(corpus, order=5):
 
     return model, {"time": elapsed, "memory": mem_used}
 
-
 def train_markov_word(corpus, order=2):
-    """Train word-level Markov Chain model."""
     print("\n--- Training Word-level Markov Chain (order={}) ---".format(order))
     start_time = time.time()
     start_mem = get_memory_mb()
@@ -66,28 +54,10 @@ def train_markov_word(corpus, order=2):
 
     return model, {"time": elapsed, "memory": mem_used}
 
-
 def train_neural_model(model, tokenizer, corpus, mode="char",
                        seq_length=100, batch_size=64, epochs=20,
                        lr=0.002, device="cpu", model_name="Model"):
-    """
-    Train a neural text generation model (RNN or LSTM).
-
-    Args:
-        model: RNNModel or LSTMModel instance.
-        tokenizer: CharTokenizer or WordTokenizer instance.
-        corpus: Raw text corpus string.
-        mode: 'char' or 'word'.
-        seq_length: Length of training sequences.
-        batch_size: Batch size for training.
-        epochs: Number of training epochs.
-        lr: Learning rate.
-        device: Torch device.
-        model_name: Name for logging.
-
-    Returns:
-        Trained model and training stats dict.
-    """
+    
     print(f"\n--- Training {model_name} ---")
     start_time = time.time()
     start_mem = get_memory_mb()
@@ -145,14 +115,7 @@ def train_neural_model(model, tokenizer, corpus, mode="char",
         "final_loss": losses[-1]
     }
 
-
 def train_all_text_gen_models(corpus, device="cpu", epochs=20):
-    """
-    Train all 6 text generation models and return them with stats.
-
-    Returns:
-        Dictionary mapping model names to (model, tokenizer, stats) tuples.
-    """
     results = {}
 
     # 1. Character-level Markov Chain
@@ -232,7 +195,6 @@ def train_all_text_gen_models(corpus, device="cpu", epochs=20):
     results["word_lstm"] = (word_lstm, word_tok_lstm, stats)
 
     return results
-
 
 if __name__ == "__main__":
     data_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "data")

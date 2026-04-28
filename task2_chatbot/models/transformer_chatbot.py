@@ -1,16 +1,9 @@
-"""
-Transformer-based chatbot implemented from scratch.
-Encoder-decoder architecture with multi-head self-attention.
-"""
-
 import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 class PositionalEncoding(nn.Module):
-    """Sinusoidal positional encoding for sequence position information."""
 
     def __init__(self, d_model, max_len=512, dropout=0.1):
         super().__init__()
@@ -25,13 +18,10 @@ class PositionalEncoding(nn.Module):
         self.register_buffer("pe", pe)
 
     def forward(self, x):
-        """Add positional encoding to input embeddings."""
         x = x + self.pe[:, :x.size(1)]
         return self.dropout(x)
 
-
 class MultiHeadAttention(nn.Module):
-    """Multi-head attention mechanism implemented from scratch."""
 
     def __init__(self, d_model, num_heads, dropout=0.1):
         super().__init__()
@@ -48,7 +38,6 @@ class MultiHeadAttention(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
     def scaled_dot_product_attention(self, Q, K, V, mask=None):
-        """Compute scaled dot-product attention."""
         scores = torch.matmul(Q, K.transpose(-2, -1)) / math.sqrt(self.d_k)
         if mask is not None:
             scores = scores.masked_fill(mask == 0, -1e9)
@@ -57,14 +46,6 @@ class MultiHeadAttention(nn.Module):
         return torch.matmul(attn_weights, V)
 
     def forward(self, query, key, value, mask=None):
-        """
-        Args:
-            query, key, value: (batch, seq_len, d_model)
-            mask: Optional attention mask.
-
-        Returns:
-            output: (batch, seq_len, d_model)
-        """
         batch_size = query.size(0)
 
         Q = self.W_q(query).view(batch_size, -1, self.num_heads, self.d_k).transpose(1, 2)
@@ -76,9 +57,7 @@ class MultiHeadAttention(nn.Module):
         attn_output = attn_output.transpose(1, 2).contiguous().view(batch_size, -1, self.d_model)
         return self.W_o(attn_output)
 
-
 class FeedForward(nn.Module):
-    """Position-wise feed-forward network."""
 
     def __init__(self, d_model, d_ff, dropout=0.1):
         super().__init__()
@@ -89,9 +68,7 @@ class FeedForward(nn.Module):
     def forward(self, x):
         return self.linear2(self.dropout(F.relu(self.linear1(x))))
 
-
 class TransformerEncoderLayer(nn.Module):
-    """Single encoder layer: self-attention + feed-forward."""
 
     def __init__(self, d_model, num_heads, d_ff, dropout=0.1):
         super().__init__()
@@ -109,9 +86,7 @@ class TransformerEncoderLayer(nn.Module):
         src = self.norm2(src + self.dropout2(ff_out))
         return src
 
-
 class TransformerDecoderLayer(nn.Module):
-    """Single decoder layer: masked self-attention + cross-attention + feed-forward."""
 
     def __init__(self, d_model, num_heads, d_ff, dropout=0.1):
         super().__init__()
@@ -134,12 +109,7 @@ class TransformerDecoderLayer(nn.Module):
         trg = self.norm3(trg + self.dropout3(ff_out))
         return trg
 
-
 class TransformerChatbot(nn.Module):
-    """
-    Full Transformer encoder-decoder model for chatbot.
-    Implemented from scratch without pretrained weights.
-    """
 
     def __init__(self, vocab_size, d_model=128, num_heads=4, d_ff=512,
                  num_encoder_layers=3, num_decoder_layers=3, max_len=512, dropout=0.1):
@@ -164,12 +134,10 @@ class TransformerChatbot(nn.Module):
         self.scale = math.sqrt(d_model)
 
     def make_src_mask(self, src):
-        """Create source padding mask."""
         src_mask = (src != 0).unsqueeze(1).unsqueeze(2)
         return src_mask
 
     def make_trg_mask(self, trg):
-        """Create target causal mask (no peeking ahead)."""
         trg_len = trg.shape[1]
         trg_pad_mask = (trg != 0).unsqueeze(1).unsqueeze(2)
         trg_causal_mask = torch.tril(torch.ones(trg_len, trg_len, device=trg.device)).bool()
@@ -177,28 +145,18 @@ class TransformerChatbot(nn.Module):
         return trg_pad_mask & trg_causal_mask
 
     def encode(self, src, src_mask):
-        """Encode source sequence."""
         x = self.pos_encoding(self.src_embedding(src) * self.scale)
         for layer in self.encoder_layers:
             x = layer(x, src_mask)
         return x
 
     def decode(self, trg, enc_out, trg_mask, src_mask):
-        """Decode target sequence given encoder output."""
         x = self.pos_encoding(self.trg_embedding(trg) * self.scale)
         for layer in self.decoder_layers:
             x = layer(x, enc_out, trg_mask, src_mask)
         return x
 
     def forward(self, src, trg):
-        """
-        Args:
-            src: Source tensor (batch, src_len).
-            trg: Target tensor (batch, trg_len).
-
-        Returns:
-            output: Logits (batch, trg_len, vocab_size).
-        """
         src_mask = self.make_src_mask(src)
         trg_mask = self.make_trg_mask(trg)
         enc_out = self.encode(src, src_mask)
@@ -206,20 +164,6 @@ class TransformerChatbot(nn.Module):
         return self.fc_out(dec_out)
 
     def respond(self, tokenizer, question, max_len=50, min_len=5, temperature=1.0, device="cpu"):
-        """
-        Generate a response to a question using greedy decoding.
-
-        Args:
-            tokenizer: WordTokenizer instance.
-            question: Input question string.
-            max_len: Maximum response length.
-            min_len: Minimum tokens before EOS is allowed.
-            temperature: Sampling temperature.
-            device: Torch device.
-
-        Returns:
-            Response string.
-        """
         self.eval()
         with torch.no_grad():
             src = torch.tensor([tokenizer.encode(question, add_special=True)],

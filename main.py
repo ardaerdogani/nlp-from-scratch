@@ -1,13 +1,3 @@
-"""
-Main entry point for the complete NLP project.
-
-Runs the full pipeline:
-1. Generate datasets (text corpus + QA pairs)
-2. Train all 6 text generation models
-3. Train both chatbot models
-4. Evaluate and compare all models
-"""
-
 import os
 import sys
 import json
@@ -24,9 +14,7 @@ from task2_chatbot.train import train_all_chatbots
 from task1_text_generation.evaluate import evaluate_text_gen_models
 from task2_chatbot.evaluate import evaluate_chatbots
 
-
 def main():
-    """Run the complete NLP pipeline."""
     device = "cuda" if torch.cuda.is_available() else "cpu"
     print(f"{'=' * 60}")
     print(f"  NLP PROJECT - Complete Pipeline")
@@ -124,7 +112,6 @@ def main():
     print(f"  Pipeline complete!")
     print(f"  Evaluation report saved to: {report_path}")
     print(f"{'=' * 60}")
-
 
 if __name__ == "__main__":
     main()

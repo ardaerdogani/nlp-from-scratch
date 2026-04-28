@@ -1,12 +1,6 @@
-"""
-QA dataset generator for chatbot training.
-Generates 2,000+ question-answer pairs across multiple topics.
-"""
-
 import json
 import random
 import os
-
 
 GEOGRAPHY_QA = [
     ("What is the capital of France?", "The capital of France is Paris."),
@@ -318,9 +312,7 @@ COMPARISONS = [
     {"a": "a river", "b": "a stream", "def_a": "a large natural flow of water to the sea", "def_b": "a smaller natural flow of water"},
 ]
 
-
 def generate_templated_qa(concepts, comparisons):
-    """Generate QA pairs from templates and concept definitions."""
     pairs = []
 
     for concept_name, concept_data in concepts.items():
@@ -347,7 +339,6 @@ def generate_templated_qa(concepts, comparisons):
             pairs.append((q, a))
 
     return pairs
-
 
 CONVERSATIONAL_QA = [
     ("Hello!", "Hello! How can I help you today?"),
@@ -392,7 +383,6 @@ CONVERSATIONAL_QA = [
     ("What is respect?", "Respect is showing consideration and appreciation for others and their feelings."),
 ]
 
-
 PREFIXES_Q = [
     "Can you tell me, ", "I want to know, ", "Please explain, ",
     "Could you answer: ", "I am curious, ", "Help me understand, ",
@@ -429,9 +419,7 @@ REPHRASING_PATTERNS = [
     ("How many", "What is the number of"),
 ]
 
-
 def generate_variation_qa(base_pairs, seed=42):
-    """Generate additional QA variations from base pairs using prefixes."""
     random.seed(seed)
     variations = []
     for q, a in base_pairs:
@@ -442,9 +430,7 @@ def generate_variation_qa(base_pairs, seed=42):
         variations.append((new_q, new_a))
     return variations
 
-
 def generate_rephrase_qa(base_pairs, seed=42):
-    """Generate rephrased versions of questions."""
     random.seed(seed)
     variations = []
     for q, a in base_pairs:
@@ -457,9 +443,7 @@ def generate_rephrase_qa(base_pairs, seed=42):
                 break
     return variations
 
-
 def generate_follow_up_qa(base_pairs, seed=42):
-    """Generate follow-up style questions from base pairs."""
     random.seed(seed)
     follow_ups = []
     templates = [
@@ -485,9 +469,7 @@ def generate_follow_up_qa(base_pairs, seed=42):
             ))
     return follow_ups
 
-
 def generate_all_qa_pairs(seed=42):
-    """Generate the complete QA dataset with 2000+ unique pairs."""
     random.seed(seed)
     all_pairs = []
 
@@ -534,9 +516,7 @@ def generate_all_qa_pairs(seed=42):
     random.shuffle(unique_pairs)
     return unique_pairs
 
-
 def main():
-    """Generate and save the QA dataset."""
     output_dir = os.path.dirname(os.path.abspath(__file__))
     output_path = os.path.join(output_dir, "qa_pairs.json")
 
@@ -548,7 +528,6 @@ def main():
     print(f"Generated {len(pairs)} QA pairs")
     print(f"Saved to: {output_path}")
     return pairs
-
 
 if __name__ == "__main__":
     main()

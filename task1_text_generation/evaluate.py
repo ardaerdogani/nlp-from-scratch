@@ -1,14 +1,8 @@
-"""
-Evaluation script for text generation models.
-Generates comparison tables with 10 test prompts across all 6 models.
-"""
-
 import os
 import sys
 from tabulate import tabulate
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 
 # 10 test prompts for text generation
 CHAR_PROMPTS = [
@@ -37,25 +31,13 @@ WORD_PROMPTS = [
     "the athlete trains hard",
 ]
 
-
 def truncate_output(text, min_chars=20, max_chars=80):
-    """Ensure output is at least min_chars and truncate to max_chars."""
     text = text.strip()
     if len(text) > max_chars:
         text = text[:max_chars] + "..."
     return text
 
-
 def evaluate_text_gen_models(results, device="cpu"):
-    """
-    Run evaluation prompts through all 6 models and build comparison tables.
-
-    Args:
-        results: Dict from train_all_text_gen_models().
-
-    Returns:
-        Formatted comparison tables as string.
-    """
     output_lines = []
 
     # =============================================

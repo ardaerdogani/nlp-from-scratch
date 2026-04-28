@@ -1,10 +1,4 @@
-"""
-Character-level and word-level tokenizers for text generation and chatbot models.
-"""
-
-
 class CharTokenizer:
-    """Character-level tokenizer that maps each character to an integer index."""
 
     def __init__(self):
         self.char_to_idx = {}
@@ -12,23 +6,18 @@ class CharTokenizer:
         self.vocab_size = 0
 
     def fit(self, text):
-        """Build vocabulary from text."""
         chars = sorted(set(text))
         self.char_to_idx = {ch: i for i, ch in enumerate(chars)}
         self.idx_to_char = {i: ch for ch, i in self.char_to_idx.items()}
         self.vocab_size = len(chars)
 
     def encode(self, text):
-        """Convert text to list of integer indices."""
         return [self.char_to_idx[ch] for ch in text if ch in self.char_to_idx]
 
     def decode(self, indices):
-        """Convert list of integer indices back to text."""
         return "".join(self.idx_to_char.get(i, "") for i in indices)
 
-
 class WordTokenizer:
-    """Word-level tokenizer that maps each word to an integer index."""
 
     PAD_TOKEN = "<PAD>"
     UNK_TOKEN = "<UNK>"
@@ -46,7 +35,6 @@ class WordTokenizer:
         self.eos_idx = 3
 
     def fit(self, text):
-        """Build vocabulary from text. Input can be a string or list of strings."""
         if isinstance(text, str):
             texts = [text]
         else:
@@ -74,7 +62,6 @@ class WordTokenizer:
         self.eos_idx = self.word_to_idx[self.EOS_TOKEN]
 
     def encode(self, text, add_special=False):
-        """Convert text to list of integer indices."""
         words = text.lower().split()
         indices = [self.word_to_idx.get(w, self.unk_idx) for w in words]
         if add_special:
@@ -82,7 +69,6 @@ class WordTokenizer:
         return indices
 
     def decode(self, indices, remove_special=True):
-        """Convert list of integer indices back to text."""
         special = {self.pad_idx, self.sos_idx, self.eos_idx}
         words = []
         for i in indices:

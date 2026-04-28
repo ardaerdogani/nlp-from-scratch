@@ -1,15 +1,8 @@
-"""
-LSTM-based sequence-to-sequence chatbot with attention mechanism.
-Encoder-Decoder architecture for question-answering.
-"""
-
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 class Encoder(nn.Module):
-    """LSTM encoder that processes input sequences."""
 
     def __init__(self, vocab_size, embed_dim, hidden_dim, num_layers=2, dropout=0.2):
         super().__init__()
@@ -29,14 +22,6 @@ class Encoder(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, src):
-        """
-        Args:
-            src: Source tensor of shape (batch, src_len).
-
-        Returns:
-            outputs: Encoder outputs (batch, src_len, hidden_dim * 2).
-            hidden: Tuple (h_n, c_n) reshaped for decoder.
-        """
         embedded = self.dropout(self.embedding(src))
         outputs, (hidden, cell) = self.lstm(embedded)
 
@@ -48,9 +33,7 @@ class Encoder(nn.Module):
 
         return outputs, (hidden, cell)
 
-
 class Attention(nn.Module):
-    """Bahdanau-style additive attention."""
 
     def __init__(self, encoder_dim, decoder_dim):
         super().__init__()
@@ -58,23 +41,13 @@ class Attention(nn.Module):
         self.v = nn.Linear(decoder_dim, 1, bias=False)
 
     def forward(self, decoder_hidden, encoder_outputs):
-        """
-        Args:
-            decoder_hidden: (batch, decoder_dim)
-            encoder_outputs: (batch, src_len, encoder_dim)
-
-        Returns:
-            attention_weights: (batch, src_len)
-        """
         src_len = encoder_outputs.shape[1]
         decoder_hidden = decoder_hidden.unsqueeze(1).repeat(1, src_len, 1)
         energy = torch.tanh(self.attn(torch.cat((decoder_hidden, encoder_outputs), dim=2)))
         attention = self.v(energy).squeeze(2)
         return F.softmax(attention, dim=1)
 
-
 class Decoder(nn.Module):
-    """LSTM decoder with attention mechanism."""
 
     def __init__(self, vocab_size, embed_dim, hidden_dim, encoder_dim, num_layers=2, dropout=0.2):
         super().__init__()
@@ -93,20 +66,6 @@ class Decoder(nn.Module):
         self.dropout = nn.Dropout(dropout)
 
     def forward(self, input_token, hidden, cell, encoder_outputs):
-        """
-        Single step of decoding.
-
-        Args:
-            input_token: (batch, 1) - current input token.
-            hidden: (num_layers, batch, hidden_dim)
-            cell: (num_layers, batch, hidden_dim)
-            encoder_outputs: (batch, src_len, encoder_dim)
-
-        Returns:
-            prediction: (batch, vocab_size)
-            hidden: Updated hidden state.
-            cell: Updated cell state.
-        """
         embedded = self.dropout(self.embedding(input_token))
 
         attn_weights = self.attention(hidden[-1], encoder_outputs)
@@ -119,9 +78,7 @@ class Decoder(nn.Module):
         prediction = self.fc_out(torch.cat((output, context, embedded), dim=2).squeeze(1))
         return prediction, hidden, cell
 
-
 class LSTMChatbot(nn.Module):
-    """Complete seq2seq model with encoder, decoder, and attention."""
 
     def __init__(self, vocab_size, embed_dim=128, hidden_dim=256, num_layers=2, dropout=0.2):
         super().__init__()
@@ -131,15 +88,6 @@ class LSTMChatbot(nn.Module):
         self.vocab_size = vocab_size
 
     def forward(self, src, trg, teacher_forcing_ratio=0.5):
-        """
-        Args:
-            src: Source tensor (batch, src_len).
-            trg: Target tensor (batch, trg_len).
-            teacher_forcing_ratio: Probability of using teacher forcing.
-
-        Returns:
-            outputs: (batch, trg_len - 1, vocab_size)
-        """
         batch_size = src.shape[0]
         trg_len = trg.shape[1]
 
@@ -161,19 +109,6 @@ class LSTMChatbot(nn.Module):
         return outputs
 
     def respond(self, tokenizer, question, max_len=50, min_len=5, device="cpu"):
-        """
-        Generate a response to a question.
-
-        Args:
-            tokenizer: WordTokenizer instance.
-            question: Input question string.
-            max_len: Maximum response length.
-            min_len: Minimum tokens before EOS is allowed.
-            device: Torch device.
-
-        Returns:
-            Response string.
-        """
         self.eval()
         with torch.no_grad():
             src = torch.tensor([tokenizer.encode(question, add_special=True)],
